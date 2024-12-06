@@ -1,6 +1,4 @@
 using System;
-using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
 
 class PraktA{
     static int factor(int n) {  //Факториал числа
