@@ -25,9 +25,4 @@ class HomeWork4{
         return res;
     }
 
-    static void Main(){
-        int[] a = Rotat([1,2,3,4,5],2);
-        Console.WriteLine(string.Join(", ", a));
-
-    }
 }
