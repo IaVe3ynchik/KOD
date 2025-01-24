@@ -191,47 +191,47 @@ class VideoFile: MediaFile{
 }
 
 
-class HomeWork2401{ // Главный класс
-    public static void Main(){
-        Dog rex = new Dog(); // 1 Практика
-        Dog dog= new Dog();
-        Bird bird= new Bird();
-        Bird chik = new Bird();
-        Animal[] animals= {rex, dog, bird, chik};
-        foreach(Animal animal in animals){
-            animal.make_sound();
-            animal.move();
-        }
+// class HomeWork2401{ // Главный класс
+//     public static void Main(){
+//         Dog rex = new Dog(); // 1 Практика
+//         Dog dog= new Dog();
+//         Bird bird= new Bird();
+//         Bird chik = new Bird();
+//         Animal[] animals= {rex, dog, bird, chik};
+//         foreach(Animal animal in animals){
+//             animal.make_sound();
+//             animal.move();
+//         }
 
 
-        Rectangle rect = new Rectangle(5, 4); // 2 Практика
-        rect.area();
-        rect.perimeter();
-        Circle circ = new Circle(5);
-        circ.area();
-        circ.perimeter();
+//         Rectangle rect = new Rectangle(5, 4); // 2 Практика
+//         rect.area();
+//         rect.perimeter();
+//         Circle circ = new Circle(5);
+//         circ.area();
+//         circ.perimeter();
 
 
-        CardPayment operation1 = new CardPayment(); // 4 Практика
-        operation1.process_payment(100);
-        CashPayment operation2 = new CashPayment();
-        operation1.process_payment(456);
+//         CardPayment operation1 = new CardPayment(); // 4 Практика
+//         operation1.process_payment(100);
+//         CashPayment operation2 = new CashPayment();
+//         operation1.process_payment(456);
 
 
-        HourlyEmployee hourly1 = new HourlyEmployee(4, 500); // 5 Практика
-        SalariedEmployee salaried1 = new SalariedEmployee(600);
-        Employee[] employees = {hourly1, salaried1};
-        foreach(Employee employee in employees){
-            employee.calculate_salary();
-        }
+//         HourlyEmployee hourly1 = new HourlyEmployee(4, 500); // 5 Практика
+//         SalariedEmployee salaried1 = new SalariedEmployee(600);
+//         Employee[] employees = {hourly1, salaried1};
+//         foreach(Employee employee in employees){
+//             employee.calculate_salary();
+//         }
 
 
-        AudioFile audio1 = new AudioFile(); // 6 Практика
-        VideoFile video1 = new VideoFile();
-        MediaFile[] medias = {video1, audio1};
-        foreach(MediaFile media in medias){
-            media.play();
-            media.stop();
-        }
-    }
-}
+//         AudioFile audio1 = new AudioFile(); // 6 Практика
+//         VideoFile video1 = new VideoFile();
+//         MediaFile[] medias = {video1, audio1};
+//         foreach(MediaFile media in medias){
+//             media.play();
+//             media.stop();
+//         }
+//     }
+// }
