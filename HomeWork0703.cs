@@ -43,9 +43,6 @@ class FileManager{
 
     public void CopyFile(string oldPath, string pathToCopy){
         string fileName = Path.GetFileName(oldPath);
-        if($"{pathToCopy[0..3]}" == @"..\"){
-            pathToCopy = Path.Combine(path, pathToCopy[3..pathToCopy.Length]);
-        }
         if(!File.Exists(pathToCopy)){
             File.Copy(oldPath, pathToCopy);
             Console.WriteLine($"Файл {fileName} скопирован.");
@@ -60,15 +57,15 @@ class FileManager{
             else if(a == 'n'){
                 Console.WriteLine($"Файл {fileName} не скопирован.");
             }
+            else{
+                Console.WriteLine($"Неверный ввод. {name} не скопирован.");
+            }
         }
     }
 
 
     public void CopyDir(string oldPath, string pathToCopy){
-        if($"{pathToCopy[0..3]}" == @"..\"){
-            pathToCopy = Path.Combine(path, pathToCopy[3..pathToCopy.Length]);
-        }
-        if(!Directory.Exists(pathToCopy)){
+        if (!Directory.Exists(pathToCopy)){
             Directory.CreateDirectory(pathToCopy);
             foreach (var file in Directory.GetFiles(oldPath))
             {
@@ -106,16 +103,16 @@ class FileManager{
         if(File.Exists(newPath)){
             FileInfo finfo = new FileInfo(newPath);
             Console.WriteLine("Информация о файле " + name);
-            Console.WriteLine("Вес файла: " + finfo.Length);
+            Console.WriteLine("Вес файла: " + finfo.Length + " байт");
             Console.WriteLine("Создан: " + finfo.CreationTime);
             Console.WriteLine("Последний раз использовался: " + finfo.LastWriteTime);
         }
         else if(Directory.Exists(newPath)){
             DirectoryInfo dinfo = new DirectoryInfo(newPath);
-            Console.WriteLine("Информация о файле " + name);
-            Console.WriteLine("Вес файла: " + SizeDir(newPath));
-            Console.WriteLine("Создан: " + dinfo.CreationTime);
-            Console.WriteLine("Последний раз использовался: " + dinfo.LastWriteTime);
+            Console.WriteLine("Информация о папке " + name);
+            Console.WriteLine("Вес папки: " + SizeDir(newPath) + " байт");
+            Console.WriteLine("Создана: " + dinfo.CreationTime);
+            Console.WriteLine("Последний раз использовалась: " + dinfo.LastWriteTime);
         }
         else{
             Console.WriteLine("Не удалось найти файл/папку. Убедитесь, что введено только название(не путь) с форматом(если это файл).");
@@ -147,7 +144,9 @@ class FileManager{
                 Console.WriteLine($"Файл {name} удален");
             }
             else if(Directory.Exists(newPath)){
-                Directory.Delete(newPath, true);
+                var dir = new DirectoryInfo(newPath);
+                dir.Attributes = dir.Attributes & ~FileAttributes.ReadOnly;
+                dir.Delete(true);
                 Console.WriteLine($"Папка {name} удалена");
             }
             else{
@@ -157,12 +156,16 @@ class FileManager{
         else if(a == 'n'){
             Console.WriteLine($"{name} не удален(а).");
         }
+        else{
+            Console.WriteLine($"Неверный ввод. {name} не удален(а).");
+        }
     }
 
 }
 
 class HomeWork0703{
     public static void Main(){
+        System.Console.OutputEncoding = System.Text.Encoding.UTF8;
         string pathExit = "Последнее_сохранение.txt";
         string path;
         if(File.Exists(pathExit)){
@@ -177,6 +180,7 @@ class HomeWork0703{
             string[] splitMess = mess.Split(" ");
             if(splitMess[0] == "cd" & splitMess.Length == 2){
                 fmanager.ChangeDirectory(splitMess[1]);
+                path = fmanager.path;
             }
             else if(mess == "ls"){
                 fmanager.ListFiles();
@@ -185,6 +189,7 @@ class HomeWork0703{
                 if(splitMess.Length == 3){
                     if(File.Exists(splitMess[1])) fmanager.CopyFile(splitMess[1], splitMess[2]);
                     else if(Directory.Exists(splitMess[1])) fmanager.CopyDir(splitMess[1], splitMess[2]);
+                    else Console.WriteLine("Убедитесь в верном написании папки/файла");
                 }
                 else if(splitMess.Length == 2){
                     fmanager.CopyDir(splitMess[1]);
@@ -196,7 +201,7 @@ class HomeWork0703{
                 else if(splitMess.Length == 1) fmanager.Info(path);
             }
             else if(splitMess[0] == "del" & splitMess.Length == 2){
-                fmanager.Delete(splitMess[2]);
+                fmanager.Delete(splitMess[1]);
             }
             else if(mess == "exit"){
                 break;
