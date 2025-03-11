@@ -165,7 +165,6 @@ class FileManager{
 
 class HomeWork0703{
     public static void Main(){
-        System.Console.OutputEncoding = System.Text.Encoding.UTF8;
         string pathExit = "Последнее_сохранение.txt";
         string path;
         if(File.Exists(pathExit)){
