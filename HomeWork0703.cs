@@ -28,8 +28,8 @@ class FileManager{
 
     public void ChangeDirectory(string newPath)
     {
-        string new_path = Path.Combine(path, newPath);
-        if (Directory.Exists(path))
+        string new_path = System.IO.Path.GetFullPath(System.IO.Path.Combine(path, new_path));
+        if (Directory.Exists(new_path))
         {
             path = new_path;
             Console.WriteLine("Новый путь: " + path);
