@@ -6,28 +6,28 @@ using GTranslatorAPI;
 
 public class BotMethods
 {
-    public static Dictionary<string, string> dictRusAndEng = new Dictionary<string, string>
+    public static Dictionary<string, string> dictRusAndEng = new Dictionary<string, string> // Словарь для перевода с русского на английский
     {
         {"привет", "hello"},
         {"мир", "world"},
         {"работа", "work"}
     }; 
     
-    public static Dictionary<string, string> dictRusAndEngAndFrench = new Dictionary<string, string>
+    public static Dictionary<string, string> dictRusAndEngAndFrench = new Dictionary<string, string> // Словарь для перевода с русского на английский и французский
     {
         {"привет", "hello; salut"},
         {"мир", "world; monde"},
         {"работа", "work; travail"}
     }; 
     
-    public static async void HandleUpdateAsync(string token, Message mess)
+    public static async void HandleUpdateAsync(string token, Message mess) // Обработка сообщений
     {
         try
         {
-            await HandlePollingErrorAsync(mess, token);
+            await HandlePollingErrorAsync(mess, token); // Обработка возможных ошибок
             string text = mess.Text;
             var bot = new TelegramBotClient(token);
-            if (text == "/start")
+            if (text == "/start") // Обработка команды /start
             {
                 await bot.SendMessage(mess.Chat,
                     $"Привет, {mess.From.Username}! Этот бот позволяет переводить сообщения");
@@ -79,19 +79,18 @@ public class BotMethods
     }
 
 
-    public static async Task HandlePollingErrorAsync(Message mess, string token)
+    public static async Task HandlePollingErrorAsync(Message mess, string token) // Обработка возможных ошибок
     {
         string text = mess.Text;
         var bot = new TelegramBotClient(token);
-        List<char> bannedChars = new List<char> {'.', '!', '#'};
         
-        if(string.IsNullOrEmpty(text))
+        if(string.IsNullOrEmpty(text)) // Если сообщение с пустым текстом
         {
             await bot.SendMessage(mess.Chat, "Сообщение не может быть пустым.");
             throw new Exception("Сообщение не может быть пустым.");
         }
 
-        if (Regex.IsMatch(text, @"\P{IsCyrillic}")&& text != "/start")
+        if (Regex.IsMatch(text, @"\P{IsCyrillic}")&& text != "/start") // Если сообщение написано не кириллицой и оно не команда /start
         {
             await bot.SendMessage(mess.Chat, "Слова могут содержать только буквы кириллицы.");
             throw new Exception("Слова могут содержать только буквы кириллицы.");
